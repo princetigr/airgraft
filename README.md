@@ -41,7 +41,7 @@ Although the design is framework agnostic, I am a fan of Netflix OSS using Zuul 
 I like the convenience it guarantees that allows one scale out by simply spinning off more instances that are automatically added to the registry for the gateway to invoke. There are other ways to achieve this with a little DevOps/Scripting if not using the likes of Eureka.
 This design also supports intra-process communication, where each services can internally invoke each other without a round-trip to the gateway ( Yes I have seen some implementations like that :)
 
-Please see [design.png](../design.png)
+Please see [design.png](design.png)
 
 ### API keys and billing typical flow
 * The typical flow would be a user would register to have access to the API, a unique secrete and app key is then generated upon account creation with a one-time access link sent to user to reveal API keys.
