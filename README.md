@@ -30,17 +30,19 @@ curl --location --request GET 'localhost:8080/suggestions?q=Lon&latitude=43.7001
 * `Scoring` mimics a traditional `order by` sorting often supported by traditional RDBMS. Firstly, sort on distance and then by a`String metric` using `Levenshtein_distance` between input parameter and corresponding city.
 
 ### Bonus points
-● Can you think of more scoring parameters to make the suggestions better? 
+## Can you think of more scoring parameters to make the suggestions better? 
 * Scoring can be enhanced by using a better distance calculation algorithm such as Google API that takes into consideration driving situations and a more realistic measurement. This would lead to a dependency to a third party API with a cost implication, one could circumvent that by using other scientific methods to derive a more precise calculation. Research needed.
 One could also use both proximity factor and string metric to score the accuracy of the suggestions.
 
-● Sketch out a design for per user API keys and billing for our future city-suggestion-service startup. What are the implications for scalability of your
+## Sketch out a design for per user API keys and billing for our future city-suggestion-service startup. What are the implications for scalability of your
 implementation?
 * The design is a simple microservices approach that ensures total separation of concern and allows for horizontal scaling. As seen in the diagram, one is able to scale out based on load by simply adding more instances to the stack.
 Although the design is framework agnostic, I am a fan of Netflix OSS using Zuul gateway, and Eureka as service registry. 
 I like the convenience it guarantees that allows one scale out by simply spinning off more instances that are automatically added to the registry for the gateway to invoke. There are other ways to achieve this with a little DevOps/Scripting if not using the likes of Eureka.
 This design also supports intra-process communication, where each services can internally invoke each other without a round-trip to the gateway ( Yes I have seen some implementations like that :)
-Please see `design.png`
+
+Please see [design.png](../design.png)
+
 ### API keys and billing typical flow
 * The typical flow would be a user would register to have access to the API, a unique secrete and app key is then generated upon account creation with a one-time access link sent to user to reveal API keys.
 * Generally, a process to validate the user and then create a plan based on the selected plan, or a standard plan  as default giving quicker access to suggestions API. This process would be determined by a product owner.
